@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { Footer } from '@/components/Footer'
@@ -19,7 +19,7 @@ interface ResultItem {
   }
 }
 
-export default function ResultsPage() {
+function ResultsContent() {
   const searchParams = useSearchParams()
   const [copied, setCopied] = useState<string | null>(null)
   const [data, setData] = useState<N8NResponse | null>(null)
@@ -334,5 +334,24 @@ export default function ResultsPage() {
       </main>
       <Footer />
     </>
+  )
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={
+      <>
+        <PortfolioNavbar />
+        <main className="min-h-screen bg-white pt-32 pb-16 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2" style={{ borderColor: 'var(--color-primary-action)' }} />
+            <p style={{ color: 'var(--color-text-secondary)', marginTop: '1rem' }}>Loading results...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    }>
+      <ResultsContent />
+    </Suspense>
   )
 }
