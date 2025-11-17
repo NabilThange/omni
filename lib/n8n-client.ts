@@ -1,5 +1,5 @@
 const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
-  'http://localhost:5678/webhook/ingest-content'
+  'https://primary-production-a9f7.up.railway.app/webhook-test/ingest-content'
 
 export interface N8NRequest {
   videoUrl: string
@@ -102,26 +102,23 @@ export class N8NClient {
 
   /**
    * Map UI content-type IDs to the tokens expected by the N8N/OPUS workflow.
-   * This keeps the UI flexible while the backend receives stable identifiers.
+   * Valid types: x_post, blog, instagram_reel_script, instagram_post, 
+   * linkedin_post, facebook_post, youtube_shorts_script
    */
   static mapContentTypes(selected: string[]): string[] {
-    const mapping: Record<string, string> = {
-      // Existing UI IDs
-      'blog-post': 'blog',
-      'linkedin-post': 'linkedin',
-      'x-post': 'x',
-      'instagram-post': 'instagram',
-      'image-only': 'image',
-
-      // Future / alternative IDs mentioned in the spec
-      'facebook-post': 'facebook',
-      'facebook': 'facebook',
-      'instagram-reel-script': 'video_script',
-      'instagram-reel': 'video_script',
-      'video-script': 'video_script',
-      'video_script': 'video_script',
-    }
-
-    return selected.map((type) => mapping[type] ?? type)
+    // Content types now match the API directly, so we just pass them through
+    // Valid types from API spec:
+    const validTypes = [
+      'x_post',
+      'blog', 
+      'instagram_reel_script',
+      'instagram_post',
+      'linkedin_post',
+      'facebook_post',
+      'youtube_shorts_script'
+    ]
+    
+    // Filter to only valid types and return
+    return selected.filter(type => validTypes.includes(type))
   }
 }

@@ -8,11 +8,13 @@ import { ProcessingModal } from '@/components/ProcessingModal'
 import { ChevronDown } from 'lucide-react'
 
 const CONTENT_TYPES = [
-  { id: 'blog-post', label: 'Blog Post', icon: '📝' },
-  { id: 'linkedin-post', label: 'LinkedIn Post', icon: '💼' },
-  { id: 'x-post', label: 'X (Twitter) Post', icon: '𝕏' },
-  { id: 'instagram-post', label: 'Instagram Post', icon: '📸' },
-  { id: 'image-only', label: 'Image Only', icon: '🖼️' },
+  { id: 'blog', label: 'Blog Post', icon: '📝' },
+  { id: 'linkedin_post', label: 'LinkedIn Post', icon: '💼' },
+  { id: 'x_post', label: 'X (Twitter) Post', icon: '𝕏' },
+  { id: 'instagram_post', label: 'Instagram Post', icon: '📸' },
+  { id: 'instagram_reel_script', label: 'Instagram Reel Script', icon: '🎬' },
+  { id: 'facebook_post', label: 'Facebook Post', icon: '📘' },
+  { id: 'youtube_shorts_script', label: 'YouTube Shorts Script', icon: '▶️' },
 ]
 
 export default function UploadPage() {
