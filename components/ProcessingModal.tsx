@@ -10,15 +10,23 @@ const Loader3 = dynamic(() => import('./loaders/LoaderAnimation3'), { ssr: false
 const Loader4 = dynamic(() => import('./loaders/LoaderAnimation4'), { ssr: false })
 const Loader5 = dynamic(() => import('./loaders/LoaderAnimation5'), { ssr: false })
 const Loader6 = dynamic(() => import('./loaders/LoaderAnimation6'), { ssr: false })
+const Loader7 = dynamic(() => import('./loaders/LoaderAnimation7'), { ssr: false })
+const Loader8 = dynamic(() => import('./loaders/LoaderAnimation8'), { ssr: false })
+const Loader9 = dynamic(() => import('./loaders/LoaderAnimation9'), { ssr: false })
+const Loader10 = dynamic(() => import('./loaders/LoaderAnimation10'), { ssr: false })
+const Loader11 = dynamic(() => import('./loaders/LoaderAnimation11'), { ssr: false })
 
 const MESSAGES = [
   'Hang tight — we\'re fetching the good bits.',
-  'Cooking up the post you wished for…',
+  'Your content is shaping up beautifully…',
+  'Processing intelligently…',
   'Extracting highlights and smart snippets.',
-  'Formatting copy for high engagement.',
-  'Generating image prompts and thumbnails.',
-  'Polishing SEO & AEO magic.',
-  'Almost there — final touches.',
+  'Preparing your content with extra care…',
+  'Aligning everything perfectly…',
+  'Good things are on the way…',
+  'Hold on… your content is leveling up.',
+  'Still working… thanks for hanging in!',
+  'Almost there… it\'s going to be worth the wait!',
 ]
 
 interface ProcessingModalProps {
@@ -63,15 +71,21 @@ export function ProcessingModal({
   }, [open])
 
   const getActiveAnimation = () => {
-    const cycleTime = 72 // Total cycle: 6 loaders × 12s each (much more responsive!)
+    const cycleTime = 360 // Total cycle: 11 loaders over 6 minutes
     const normalizedTime = elapsedSeconds % cycleTime
 
-    if (normalizedTime < 12) return 1
-    if (normalizedTime < 24) return 2
-    if (normalizedTime < 36) return 3
-    if (normalizedTime < 48) return 4
-    if (normalizedTime < 60) return 5
-    return 6
+    // Each loader shows for ~32.7 seconds (360/11)
+    if (normalizedTime < 33) return 1
+    if (normalizedTime < 66) return 2
+    if (normalizedTime < 99) return 3
+    if (normalizedTime < 132) return 4
+    if (normalizedTime < 165) return 5
+    if (normalizedTime < 198) return 6
+    if (normalizedTime < 231) return 7
+    if (normalizedTime < 264) return 8
+    if (normalizedTime < 297) return 9
+    if (normalizedTime < 330) return 10
+    return 11
   }
 
   const activeAnimation = getActiveAnimation()
@@ -93,7 +107,7 @@ export function ProcessingModal({
       >
         {/* Main Content Container - Centered Layout */}
         <div className="flex flex-col items-center text-center">
-          {/* Loader Animation - Cycling between 6 animations with smooth transitions */}
+          {/* Loader Animation - Cycling between 11 animations with smooth transitions */}
           <div className="mb-10 flex items-center justify-center h-40 relative">
             <div
               className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
@@ -130,6 +144,36 @@ export function ProcessingModal({
               style={{ opacity: activeAnimation === 6 ? 1 : 0 }}
             >
               <Loader6 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 7 ? 1 : 0 }}
+            >
+              <Loader7 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 8 ? 1 : 0 }}
+            >
+              <Loader8 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 9 ? 1 : 0 }}
+            >
+              <Loader9 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 10 ? 1 : 0 }}
+            >
+              <Loader10 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 11 ? 1 : 0 }}
+            >
+              <Loader11 />
             </div>
           </div>
 
@@ -181,7 +225,7 @@ export function ProcessingModal({
               <div
                 className="h-full transition-all duration-1000 ease-linear"
                 style={{
-                  width: `${Math.min(100, (elapsedSeconds / 72) * 100)}%`,
+                  width: `${Math.min(100, (elapsedSeconds / 360) * 100)}%`,
                   backgroundColor: 'var(--color-primary-action)',
                 }}
               />
@@ -193,7 +237,13 @@ export function ProcessingModal({
                 color: 'var(--color-text-muted)',
               }}
             >
-              {Math.min(100, Math.floor((elapsedSeconds / 72) * 100))}% complete
+              {elapsedSeconds >= 360 ? (
+                <span className="font-semibold" style={{ color: 'var(--color-primary-action)' }}>
+                  Preparing your content… hang tight, amazing things are on the way!
+                </span>
+              ) : (
+                `${Math.min(100, Math.floor((elapsedSeconds / 360) * 100))}% complete`
+              )}
             </p>
           </div>
 
