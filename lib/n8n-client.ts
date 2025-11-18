@@ -14,6 +14,8 @@ export interface N8NResponse {
     url: string
     title: string
     channel: string
+    transcript?: string
+    summary?: string
   }
   content: {
     total_items: number

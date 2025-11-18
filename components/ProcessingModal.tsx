@@ -63,14 +63,14 @@ export function ProcessingModal({
   }, [open])
 
   const getActiveAnimation = () => {
-    const cycleTime = 420 // Total cycle matches 7 minute timeout: 6 loaders × 70s each
+    const cycleTime = 72 // Total cycle: 6 loaders × 12s each (much more responsive!)
     const normalizedTime = elapsedSeconds % cycleTime
 
-    if (normalizedTime < 70) return 1
-    if (normalizedTime < 140) return 2
-    if (normalizedTime < 210) return 3
-    if (normalizedTime < 280) return 4
-    if (normalizedTime < 350) return 5
+    if (normalizedTime < 12) return 1
+    if (normalizedTime < 24) return 2
+    if (normalizedTime < 36) return 3
+    if (normalizedTime < 48) return 4
+    if (normalizedTime < 60) return 5
     return 6
   }
 
@@ -93,14 +93,44 @@ export function ProcessingModal({
       >
         {/* Main Content Container - Centered Layout */}
         <div className="flex flex-col items-center text-center">
-          {/* Loader Animation - Cycling between 6 animations */}
-          <div className="mb-10 flex items-center justify-center h-40">
-            {activeAnimation === 1 && <Loader1 />}
-            {activeAnimation === 2 && <Loader2 />}
-            {activeAnimation === 3 && <Loader3 />}
-            {activeAnimation === 4 && <Loader4 />}
-            {activeAnimation === 5 && <Loader5 />}
-            {activeAnimation === 6 && <Loader6 />}
+          {/* Loader Animation - Cycling between 6 animations with smooth transitions */}
+          <div className="mb-10 flex items-center justify-center h-40 relative">
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 1 ? 1 : 0 }}
+            >
+              <Loader1 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 2 ? 1 : 0 }}
+            >
+              <Loader2 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 3 ? 1 : 0 }}
+            >
+              <Loader3 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 4 ? 1 : 0 }}
+            >
+              <Loader4 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 5 ? 1 : 0 }}
+            >
+              <Loader5 />
+            </div>
+            <div
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700"
+              style={{ opacity: activeAnimation === 6 ? 1 : 0 }}
+            >
+              <Loader6 />
+            </div>
           </div>
 
           <h2 id="processing-title" className="text-4xl font-bold mb-6"
@@ -127,7 +157,7 @@ export function ProcessingModal({
           </p>
 
           {/* Progress Dots - More Spacious */}
-          <div className="flex items-center gap-3 justify-center mb-12">
+          <div className="flex items-center gap-3 justify-center mb-6">
             {MESSAGES.map((_, i) => (
               <span
                 key={i}
@@ -140,6 +170,31 @@ export function ProcessingModal({
                 }}
               />
             ))}
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full max-w-md mb-12">
+            <div 
+              className="h-2 rounded-full overflow-hidden"
+              style={{ backgroundColor: 'var(--color-bg-lighter)' }}
+            >
+              <div
+                className="h-full transition-all duration-1000 ease-linear"
+                style={{
+                  width: `${Math.min(100, (elapsedSeconds / 72) * 100)}%`,
+                  backgroundColor: 'var(--color-primary-action)',
+                }}
+              />
+            </div>
+            <p
+              className="text-xs text-center mt-2"
+              style={{
+                fontFamily: 'var(--font-figtree), Figtree',
+                color: 'var(--color-text-muted)',
+              }}
+            >
+              {Math.min(100, Math.floor((elapsedSeconds / 72) * 100))}% complete
+            </p>
           </div>
 
           {/* Bottom Info Section */}
