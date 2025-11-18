@@ -7,6 +7,9 @@ import dynamic from 'next/dynamic'
 const Loader1 = dynamic(() => import('./loaders/LoaderAnimation1'), { ssr: false })
 const Loader2 = dynamic(() => import('./loaders/LoaderAnimation2'), { ssr: false })
 const Loader3 = dynamic(() => import('./loaders/LoaderAnimation3'), { ssr: false })
+const Loader4 = dynamic(() => import('./loaders/LoaderAnimation4'), { ssr: false })
+const Loader5 = dynamic(() => import('./loaders/LoaderAnimation5'), { ssr: false })
+const Loader6 = dynamic(() => import('./loaders/LoaderAnimation6'), { ssr: false })
 
 const MESSAGES = [
   'Hang tight — we\'re fetching the good bits.',
@@ -27,7 +30,7 @@ interface ProcessingModalProps {
 export function ProcessingModal({
   open,
   onCancel,
-  estimatedTime = '20–60s',
+  estimatedTime = '2–5 min',
 }: ProcessingModalProps) {
   const [messageIndex, setMessageIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
@@ -60,12 +63,15 @@ export function ProcessingModal({
   }, [open])
 
   const getActiveAnimation = () => {
-    const cycleTime = 120 // Total cycle: 30 + 45 + 45 = 120 seconds
+    const cycleTime = 420 // Total cycle matches 7 minute timeout: 6 loaders × 70s each
     const normalizedTime = elapsedSeconds % cycleTime
 
-    if (normalizedTime < 30) return 1
-    if (normalizedTime < 75) return 2
-    return 3
+    if (normalizedTime < 70) return 1
+    if (normalizedTime < 140) return 2
+    if (normalizedTime < 210) return 3
+    if (normalizedTime < 280) return 4
+    if (normalizedTime < 350) return 5
+    return 6
   }
 
   const activeAnimation = getActiveAnimation()
@@ -87,11 +93,14 @@ export function ProcessingModal({
       >
         {/* Main Content Container - Centered Layout */}
         <div className="flex flex-col items-center text-center">
-          {/* Loader Animation - Cycling between 3 animations */}
+          {/* Loader Animation - Cycling between 6 animations */}
           <div className="mb-10 flex items-center justify-center h-40">
             {activeAnimation === 1 && <Loader1 />}
             {activeAnimation === 2 && <Loader2 />}
             {activeAnimation === 3 && <Loader3 />}
+            {activeAnimation === 4 && <Loader4 />}
+            {activeAnimation === 5 && <Loader5 />}
+            {activeAnimation === 6 && <Loader6 />}
           </div>
 
           <h2 id="processing-title" className="text-4xl font-bold mb-6"

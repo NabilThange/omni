@@ -73,11 +73,11 @@ export class N8NClient {
       // Browser support for AbortSignal.timeout is good in modern environments.
       // If it's unavailable, we just skip the explicit timeout and rely on default behaviour.
       if (typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal) {
-        // 5 minute timeout to give the workflow enough time to complete
-        // (transcript extraction + OPUS processing + image generation can take 2-4 minutes)
+        // 7 minute timeout to give the workflow enough time to complete
+        // (transcript extraction + OPUS processing + image generation can take 4-6 minutes)
         // while still avoiding infinite hangs in the UI.
         // @ts-expect-error - AbortSignal.timeout may not be in the TS lib yet
-        fetchOptions.signal = AbortSignal.timeout(300_000)
+        fetchOptions.signal = AbortSignal.timeout(420_000)
       }
 
       const response = await fetch(N8N_WEBHOOK_URL, fetchOptions)
