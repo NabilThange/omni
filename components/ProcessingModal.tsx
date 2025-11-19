@@ -17,47 +17,14 @@ const Loader10 = dynamic(() => import('./loaders/LoaderAnimation10'), { ssr: fal
 const Loader11 = dynamic(() => import('./loaders/LoaderAnimation11'), { ssr: false })
 
 export const MESSAGES = [
-  "Omni is analyzing your video for its strongest moments…",
-  "Identifying the themes that will power your content…",
-  "Repurposing brilliance — Omni style.",
-  "Your transcript is being decoded and understood deeply…",
-  "Omni is crafting content across every platform you selected.",
-  "Discovering share-worthy ideas in your long-form video…",
-  "Extracting the moments that deserve to go viral…",
-  "Generating platform-perfect content just for you…",
-  "Shaping your blog, posts, and scripts with precision…",
-  "Scanning for high-impact insights…",
-  "Your Omni engine is optimizing hooks and headlines…",
-  "Turning raw transcript into polished micro-content…",
-  "Finding your video’s strongest talking points…",
-  "Omni is building your content package piece by piece…",
-  "Scoring each piece for virality and usefulness…",
-  "Creating intelligent image prompts for every output…",
-  "Aligning captions, scripts, and posts for maximum impact…",
-  "Omni is stitching everything into a unified content set…",
-  "Segmenting the transcript into high-value sections…",
-  "Writing with your audience and platform in mind…",
-  "Refining tone, clarity, and storytelling…",
-  "Crafting hooks your viewers won’t scroll past…",
-  "Preparing your short-form scripts with cinematic pacing…",
-  "Transforming insights into platform-ready posts…",
-  "Your multi-content package is almost ready…",
-  "Omni is polishing every detail before delivery…",
-  "Matching each content type to its ideal platform style…",
-  "Imagining visuals that fit your message perfectly…",
-  "Generating ideas you didn’t know your video had…",
-  "Omni is building your content ecosystem…",
-  "Preparing your blog with SEO-smart structure…",
-  "Your repurposed content is leveling up…",
-  "Extracting golden nuggets from long-form dialogue…",
-  "Designing image prompts with precision and context…",
-  "Omni is making every second of your video count…",
-  "Packaging everything neatly for easy download…",
-  "Almost there — Omni is finalizing your content set.",
-  "Your Omni engine is giving your video a second life.",
-  "Transforming one video into infinite possibilities…",
-  "Omni is elevating your content to its highest potential."
+  "Omni is studying your video's strongest moments…",
+  "Extracting key ideas and transforming them into platform-ready pieces…",
+  "Crafting posts, captions, and scripts with precision…",
+  "Generating high-impact content tailored to each platform…",
+  "Scoring and refining each piece for maximum impact…",
+  "Your Omni-powered content is almost ready…"
 ];
+
 
 
 interface ProcessingModalProps {
@@ -108,7 +75,7 @@ export function ProcessingModal({
     setMessageIndex(0)
     const interval = setInterval(() => {
       setMessageIndex((prev) => (prev + 1) % MESSAGES.length)
-    }, 3000)
+    }, 15000) // 15 seconds per message (90 seconds / 6 messages)
     return () => clearInterval(interval)
   }, [open])
 
