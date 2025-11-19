@@ -93,12 +93,8 @@ export class N8NClient {
     } catch (error: any) {
       console.error('N8N API error:', error)
 
-      // Normalize timeout-like errors so the UI can show a friendly message
-      if (error?.name === 'TimeoutError' || /timeout/i.test(String(error?.message))) {
-        throw new Error('Request timed out while waiting for N8N to finish processing.')
-      }
-
-      throw error
+      // Always show a generic error message to users
+      throw new Error('Our servers are currently experiencing high traffic. Please try again in a few moments.')
     }
   }
 

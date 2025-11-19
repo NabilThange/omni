@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import dynamic from 'next/dynamic'
 
@@ -16,18 +16,49 @@ const Loader9 = dynamic(() => import('./loaders/LoaderAnimation9'), { ssr: false
 const Loader10 = dynamic(() => import('./loaders/LoaderAnimation10'), { ssr: false })
 const Loader11 = dynamic(() => import('./loaders/LoaderAnimation11'), { ssr: false })
 
-const MESSAGES = [
-  'Hang tight — we\'re fetching the good bits.',
-  'Your content is shaping up beautifully…',
-  'Processing intelligently…',
-  'Extracting highlights and smart snippets.',
-  'Preparing your content with extra care…',
-  'Aligning everything perfectly…',
-  'Good things are on the way…',
-  'Hold on… your content is leveling up.',
-  'Still working… thanks for hanging in!',
-  'Almost there… it\'s going to be worth the wait!',
-]
+export const MESSAGES = [
+  "Omni is analyzing your video for its strongest moments…",
+  "Identifying the themes that will power your content…",
+  "Repurposing brilliance — Omni style.",
+  "Your transcript is being decoded and understood deeply…",
+  "Omni is crafting content across every platform you selected.",
+  "Discovering share-worthy ideas in your long-form video…",
+  "Extracting the moments that deserve to go viral…",
+  "Generating platform-perfect content just for you…",
+  "Shaping your blog, posts, and scripts with precision…",
+  "Scanning for high-impact insights…",
+  "Your Omni engine is optimizing hooks and headlines…",
+  "Turning raw transcript into polished micro-content…",
+  "Finding your video’s strongest talking points…",
+  "Omni is building your content package piece by piece…",
+  "Scoring each piece for virality and usefulness…",
+  "Creating intelligent image prompts for every output…",
+  "Aligning captions, scripts, and posts for maximum impact…",
+  "Omni is stitching everything into a unified content set…",
+  "Segmenting the transcript into high-value sections…",
+  "Writing with your audience and platform in mind…",
+  "Refining tone, clarity, and storytelling…",
+  "Crafting hooks your viewers won’t scroll past…",
+  "Preparing your short-form scripts with cinematic pacing…",
+  "Transforming insights into platform-ready posts…",
+  "Your multi-content package is almost ready…",
+  "Omni is polishing every detail before delivery…",
+  "Matching each content type to its ideal platform style…",
+  "Imagining visuals that fit your message perfectly…",
+  "Generating ideas you didn’t know your video had…",
+  "Omni is building your content ecosystem…",
+  "Preparing your blog with SEO-smart structure…",
+  "Your repurposed content is leveling up…",
+  "Extracting golden nuggets from long-form dialogue…",
+  "Designing image prompts with precision and context…",
+  "Omni is making every second of your video count…",
+  "Packaging everything neatly for easy download…",
+  "Almost there — Omni is finalizing your content set.",
+  "Your Omni engine is giving your video a second life.",
+  "Transforming one video into infinite possibilities…",
+  "Omni is elevating your content to its highest potential."
+];
+
 
 interface ProcessingModalProps {
   open: boolean
@@ -43,6 +74,17 @@ export function ProcessingModal({
   const [messageIndex, setMessageIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
+
+  // Generate random loader sequence once per modal open
+  const loaderSequence = useMemo(() => {
+    const sequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    // Fisher-Yates shuffle
+    for (let i = sequence.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[sequence[i], sequence[j]] = [sequence[j], sequence[i]]
+    }
+    return sequence
+  }, [open])
 
   useEffect(() => {
     setMounted(true)
@@ -75,17 +117,9 @@ export function ProcessingModal({
     const normalizedTime = elapsedSeconds % cycleTime
 
     // Each loader shows for ~8.2 seconds (90/11)
-    if (normalizedTime < 8) return 1
-    if (normalizedTime < 16) return 2
-    if (normalizedTime < 24) return 3
-    if (normalizedTime < 33) return 4
-    if (normalizedTime < 41) return 5
-    if (normalizedTime < 49) return 6
-    if (normalizedTime < 57) return 7
-    if (normalizedTime < 66) return 8
-    if (normalizedTime < 74) return 9
-    if (normalizedTime < 82) return 10
-    return 11
+    // Return loader from random sequence
+    const index = Math.floor(normalizedTime / 8.2)
+    return loaderSequence[Math.min(index, 10)]
   }
 
   const activeAnimation = getActiveAnimation()
