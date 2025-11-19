@@ -38,7 +38,7 @@ interface ProcessingModalProps {
 export function ProcessingModal({
   open,
   onCancel,
-  estimatedTime = '2–5 min',
+  estimatedTime = '60–90 sec',
 }: ProcessingModalProps) {
   const [messageIndex, setMessageIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
@@ -71,20 +71,20 @@ export function ProcessingModal({
   }, [open])
 
   const getActiveAnimation = () => {
-    const cycleTime = 360 // Total cycle: 11 loaders over 6 minutes
+    const cycleTime = 90 // Total cycle: 11 loaders over 90 seconds
     const normalizedTime = elapsedSeconds % cycleTime
 
-    // Each loader shows for ~32.7 seconds (360/11)
-    if (normalizedTime < 33) return 1
-    if (normalizedTime < 66) return 2
-    if (normalizedTime < 99) return 3
-    if (normalizedTime < 132) return 4
-    if (normalizedTime < 165) return 5
-    if (normalizedTime < 198) return 6
-    if (normalizedTime < 231) return 7
-    if (normalizedTime < 264) return 8
-    if (normalizedTime < 297) return 9
-    if (normalizedTime < 330) return 10
+    // Each loader shows for ~8.2 seconds (90/11)
+    if (normalizedTime < 8) return 1
+    if (normalizedTime < 16) return 2
+    if (normalizedTime < 24) return 3
+    if (normalizedTime < 33) return 4
+    if (normalizedTime < 41) return 5
+    if (normalizedTime < 49) return 6
+    if (normalizedTime < 57) return 7
+    if (normalizedTime < 66) return 8
+    if (normalizedTime < 74) return 9
+    if (normalizedTime < 82) return 10
     return 11
   }
 
@@ -225,7 +225,7 @@ export function ProcessingModal({
               <div
                 className="h-full transition-all duration-1000 ease-linear"
                 style={{
-                  width: `${Math.min(100, (elapsedSeconds / 360) * 100)}%`,
+                  width: `${Math.min(100, (elapsedSeconds / 90) * 100)}%`,
                   backgroundColor: 'var(--color-primary-action)',
                 }}
               />
@@ -237,12 +237,12 @@ export function ProcessingModal({
                 color: 'var(--color-text-muted)',
               }}
             >
-              {elapsedSeconds >= 360 ? (
+              {elapsedSeconds >= 90 ? (
                 <span className="font-semibold" style={{ color: 'var(--color-primary-action)' }}>
                   Preparing your content… hang tight, amazing things are on the way!
                 </span>
               ) : (
-                `${Math.min(100, Math.floor((elapsedSeconds / 360) * 100))}% complete`
+                `${Math.min(100, Math.floor((elapsedSeconds / 90) * 100))}% complete`
               )}
             </p>
           </div>
