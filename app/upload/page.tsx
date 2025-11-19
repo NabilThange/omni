@@ -69,8 +69,9 @@ export default function UploadPage() {
       const response = await N8NClient.generateContent(videoUrl, mappedTypes)
       
       if (response.success) {
-        const encodedData = encodeURIComponent(JSON.stringify(response))
-        router.push(`/results?data=${encodedData}`)
+        // Store response in sessionStorage instead of URL to avoid URI_TOO_LONG error
+        sessionStorage.setItem('omni_content_result', JSON.stringify(response))
+        router.push('/results')
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to generate content'
