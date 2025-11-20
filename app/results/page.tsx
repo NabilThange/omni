@@ -19,7 +19,20 @@ interface ResultItem {
   scores: {
     virality: number
     usefulness: number
+    engagement?: number
+    quality?: number
+    seo_discoverability?: number
+    overall?: number
   }
+  score_reasoning?: string
+  improvement_suggestions?: string[]
+  best_time_to_post?: string
+  estimated_reach?: string
+  generation_status?: string
+  generation_time?: string
+  image_generated: boolean
+  image_error: string | null
+  processed_at: string
 }
 
 function ResultsContent() {
@@ -521,9 +534,9 @@ function ResultsContent() {
       )}
 
       <main className="min-h-screen bg-white pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-8">
-          {/* Generate More Content Button - Top Left (Secondary, Small) */}
-          <div className="mb-6">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Generate More Content Button - Top Left */}
+          <div className="mb-8">
             <a
               href="/upload"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium text-sm"
@@ -548,7 +561,7 @@ function ResultsContent() {
           </div>
 
           {/* Page Title */}
-          <div className="mb-8">
+          <div className="mb-12">
             <h1
               className="text-5xl font-bold mb-2"
               style={{ 
@@ -569,57 +582,12 @@ function ResultsContent() {
             </p>
           </div>
 
-          {/* 3-Column Header: Transcript | Video | Summary */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-            {/* Left Column: Full Transcript (Collapsible) */}
-            <div className="border rounded-xl" style={{ borderColor: 'var(--color-border-lighter)' }}>
-              <button
-                onClick={() => setTranscriptExpanded(!transcriptExpanded)}
-                className="w-full p-6 flex items-center justify-between text-left transition-colors"
-                style={{ 
-                  minHeight: '44px',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-bg-lighter)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                <h2
-                  className="text-2xl font-bold"
-                  style={{ 
-                    fontFamily: 'var(--font-figtree), Figtree',
-                    color: 'var(--color-text-primary)'
-                  }}
-                >
-                  Full Transcript
-                </h2>
-                {transcriptExpanded ? (
-                  <ChevronUp className="w-6 h-6 flex-shrink-0" style={{ color: 'var(--color-text-primary)' }} />
-                ) : (
-                  <ChevronDown className="w-6 h-6 flex-shrink-0" style={{ color: 'var(--color-text-primary)' }} />
-                )}
-              </button>
-              {transcriptExpanded && (
-                <div className="px-6 pb-6">
-                  <div
-                    className="overflow-y-auto max-h-[500px] pr-2"
-                    style={{ 
-                      fontFamily: 'var(--font-figtree), Figtree',
-                      color: 'var(--color-text-secondary)',
-                      fontSize: '0.9rem',
-                      lineHeight: '1.6'
-                    }}
-                  >
-                    {data.video.transcript || 'No transcript available.'}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Center Column: Video Embed + Metadata */}
-            <div className="border rounded-xl p-6" style={{ borderColor: 'var(--color-border-lighter)' }}>
+          {/* Hero Video Section */}
+          <div className="mb-16">
+            <div className="rounded-2xl overflow-hidden shadow-lg mb-6" style={{ borderColor: 'var(--color-border-lighter)' }}>
               {videoId ? (
-                <div className="mb-4">
-                  <div className="aspect-video w-full rounded-lg overflow-hidden">
+                <div className="w-full bg-black">
+                  <div style={{ paddingBottom: '56.25%', position: 'relative' }}>
                     <iframe
                       width="100%"
                       height="100%"
@@ -628,79 +596,143 @@ function ResultsContent() {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     />
                   </div>
                 </div>
               ) : (
-                <div className="aspect-video w-full rounded-lg bg-gray-100 flex items-center justify-center mb-4">
+                <div className="w-full h-96 rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center">
                   <p style={{ color: 'var(--color-text-muted)' }}>Video preview unavailable</p>
                 </div>
               )}
-              <h3
-                className="text-xl font-bold mb-2"
-                style={{ 
-                  fontFamily: 'var(--font-figtree), Figtree',
-                  color: 'var(--color-text-primary)'
-                }}
-              >
-                {data.video.title}
-              </h3>
-              <p
-                className="text-sm mb-4"
-                style={{ 
-                  fontFamily: 'var(--font-figtree), Figtree',
-                  color: 'var(--color-text-muted)'
-                }}
-              >
-                {data.video.channel}
-              </p>
-              <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
-                Job ID: {data.metadata.opus_job_id}
-              </p>
             </div>
 
-            {/* Right Column: Video Summary (Collapsible) */}
-            <div className="border rounded-xl" style={{ borderColor: 'var(--color-border-lighter)' }}>
-              <button
-                onClick={() => setSummaryExpanded(!summaryExpanded)}
-                className="w-full p-6 flex items-center justify-between text-left transition-colors"
-                style={{ 
-                  minHeight: '44px',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-bg-lighter)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
+            {/* Video Metadata - Below video */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
                 <h2
-                  className="text-2xl font-bold"
+                  className="text-3xl font-bold mb-1"
                   style={{ 
                     fontFamily: 'var(--font-figtree), Figtree',
                     color: 'var(--color-text-primary)'
                   }}
                 >
-                  Video Summary
+                  {data.video.title}
                 </h2>
-                {summaryExpanded ? (
-                  <ChevronUp className="w-6 h-6 flex-shrink-0" style={{ color: 'var(--color-text-primary)' }} />
-                ) : (
-                  <ChevronDown className="w-6 h-6 flex-shrink-0" style={{ color: 'var(--color-text-primary)' }} />
-                )}
-              </button>
-              {summaryExpanded && (
-                <div className="px-6 pb-6">
-                  <p
-                    className="leading-relaxed"
-                    style={{ 
-                      fontFamily: 'var(--font-figtree), Figtree',
-                      color: 'var(--color-text-secondary)',
-                      fontSize: '0.9rem',
-                      lineHeight: '1.6'
-                    }}
-                  >
-                    {data.video.summary || 'No summary available.'}
-                  </p>
-                </div>
-              )}
+                <p
+                  className="text-sm"
+                  style={{ 
+                    fontFamily: 'var(--font-figtree), Figtree',
+                    color: 'var(--color-text-muted)'
+                  }}
+                >
+                  {data.video.channel} • Job ID: {data.metadata.opus_job_id}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Left: Full Transcript with Copy Button */}
+            <div className="border rounded-2xl overflow-hidden shadow-sm transition-all hover:shadow-md" style={{ borderColor: 'var(--color-border-lighter)' }}>
+              <div className="p-6 border-b flex items-center justify-between" style={{ borderColor: 'var(--color-border-lighter)', backgroundColor: 'var(--color-bg-lighter)' }}>
+                <h3
+                  className="text-xl font-bold"
+                  style={{ 
+                    fontFamily: 'var(--font-figtree), Figtree',
+                    color: 'var(--color-text-primary)'
+                  }}
+                >
+                  Transcript
+                </h3>
+                <button
+                  onClick={() => handleCopy(data.transcript?.full_text || data.video.transcript || '', 'transcript')}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm font-medium"
+                  style={{ 
+                    backgroundColor: copied === 'transcript' ? '#dcfce7' : 'white',
+                    color: copied === 'transcript' ? '#16a34a' : 'var(--color-text-primary)',
+                    border: '1px solid var(--color-border-lighter)'
+                  }}
+                  onMouseEnter={(e) => !copied && (e.currentTarget.style.borderColor = '#3b82f6')}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--color-border-lighter)'}
+                >
+                  {copied === 'transcript' ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+              <div className="p-6 max-h-96 overflow-y-auto">
+                <p
+                  className="leading-relaxed"
+                  style={{ 
+                    fontFamily: 'var(--font-figtree), Figtree',
+                    color: 'var(--color-text-secondary)',
+                    fontSize: '0.95rem',
+                    lineHeight: '1.7'
+                  }}
+                >
+                  {data.transcript?.full_text || data.video.transcript || 'No transcript available.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Video Summary with Copy Button */}
+            <div className="border rounded-2xl overflow-hidden shadow-sm transition-all hover:shadow-md" style={{ borderColor: 'var(--color-border-lighter)' }}>
+              <div className="p-6 border-b flex items-center justify-between" style={{ borderColor: 'var(--color-border-lighter)', backgroundColor: 'var(--color-bg-lighter)' }}>
+                <h3
+                  className="text-xl font-bold"
+                  style={{ 
+                    fontFamily: 'var(--font-figtree), Figtree',
+                    color: 'var(--color-text-primary)'
+                  }}
+                >
+                  Summary
+                </h3>
+                <button
+                  onClick={() => handleCopy(data.analysis?.summary || data.video.summary || '', 'summary')}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all text-sm font-medium"
+                  style={{ 
+                    backgroundColor: copied === 'summary' ? '#dcfce7' : 'white',
+                    color: copied === 'summary' ? '#16a34a' : 'var(--color-text-primary)',
+                    border: '1px solid var(--color-border-lighter)'
+                  }}
+                  onMouseEnter={(e) => !copied && (e.currentTarget.style.borderColor = '#3b82f6')}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--color-border-lighter)'}
+                >
+                  {copied === 'summary' ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+              <div className="p-6 max-h-96 overflow-y-auto">
+                <p
+                  className="leading-relaxed"
+                  style={{ 
+                    fontFamily: 'var(--font-figtree), Figtree',
+                    color: 'var(--color-text-secondary)',
+                    fontSize: '0.95rem',
+                    lineHeight: '1.7'
+                  }}
+                >
+                  {data.analysis?.summary || data.video.summary || 'No summary available.'}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -763,7 +795,7 @@ function ResultsContent() {
                     style={{ backgroundColor: 'var(--color-bg-lighter)' }}>
                     {item.image_url ? (
                       <img
-                        src={item.image_url}
+                        src={item.image_url || "/placeholder.svg"}
                         alt={item.content_type}
                         className="w-full h-full object-cover"
                       />
@@ -912,7 +944,7 @@ function ResultsContent() {
                   {selectedCard.image_url && (
                     <div className="mb-6 rounded-xl overflow-hidden">
                       <img
-                        src={selectedCard.image_url}
+                        src={selectedCard.image_url || "/placeholder.svg"}
                         alt={selectedCard.content_type}
                         className="w-full h-auto"
                       />
@@ -930,29 +962,185 @@ function ResultsContent() {
                     >
                       {selectedCard.content_type.replace(/_/g, ' ')}
                     </h2>
-                    <div className="flex gap-3 flex-wrap">
-                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold"
-                        style={{ 
-                          backgroundColor: 'var(--color-warning)',
-                          color: 'var(--color-warning-text)'
-                        }}>
-                        Virality: {selectedCard.scores.virality}
-                      </span>
-                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold"
-                        style={{ 
-                          backgroundColor: 'var(--color-success-light)',
-                          color: 'var(--color-success)'
-                        }}>
-                        Usefulness: {selectedCard.scores.usefulness}
-                      </span>
-                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold"
-                        style={{ 
-                          backgroundColor: 'var(--color-bg-lighter)',
-                          color: 'var(--color-text-primary)'
-                        }}>
-                        Aspect Ratio: {selectedCard.aspect_ratio}
-                      </span>
+
+                    {/* Overall Score - Prominent Display */}
+                    {selectedCard.scores.overall !== undefined && (
+                      <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: 'var(--color-bg-lighter)', border: '2px solid var(--color-border-lighter)' }}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-lg font-bold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: 'var(--color-text-primary)' }}>
+                            Overall Score
+                          </span>
+                          <span className="text-3xl font-bold" style={{ 
+                            fontFamily: 'var(--font-figtree), Figtree',
+                            color: selectedCard.scores.overall >= 86 ? '#16a34a' : 
+                                   selectedCard.scores.overall >= 71 ? '#0988F0' :
+                                   selectedCard.scores.overall >= 51 ? '#eab308' :
+                                   selectedCard.scores.overall >= 31 ? '#f97316' : '#dc2626'
+                          }}>
+                            {selectedCard.scores.overall}/100
+                          </span>
+                        </div>
+                        <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: '#e5e7eb' }}>
+                          <div 
+                            className="h-full rounded-full transition-all"
+                            style={{ 
+                              width: `${selectedCard.scores.overall}%`,
+                              backgroundColor: selectedCard.scores.overall >= 86 ? '#16a34a' : 
+                                             selectedCard.scores.overall >= 71 ? '#0988F0' :
+                                             selectedCard.scores.overall >= 51 ? '#eab308' :
+                                             selectedCard.scores.overall >= 31 ? '#f97316' : '#dc2626'
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Detailed Scores Grid */}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      {/* Virality */}
+                      <div className="p-3 rounded-lg" style={{ backgroundColor: '#fef3c7', border: '1px solid #f59e0b' }}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#92400e' }}>
+                            🔥 Virality
+                          </span>
+                          <span className="text-lg font-bold" style={{ color: '#92400e' }}>
+                            {selectedCard.scores.virality}
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#fde68a' }}>
+                          <div className="h-full rounded-full" style={{ width: `${selectedCard.scores.virality}%`, backgroundColor: '#f59e0b' }} />
+                        </div>
+                      </div>
+
+                      {/* Usefulness */}
+                      <div className="p-3 rounded-lg" style={{ backgroundColor: '#dcfce7', border: '1px solid #22c55e' }}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#166534' }}>
+                            💡 Usefulness
+                          </span>
+                          <span className="text-lg font-bold" style={{ color: '#166534' }}>
+                            {selectedCard.scores.usefulness}
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#bbf7d0' }}>
+                          <div className="h-full rounded-full" style={{ width: `${selectedCard.scores.usefulness}%`, backgroundColor: '#22c55e' }} />
+                        </div>
+                      </div>
+
+                      {/* Engagement */}
+                      {selectedCard.scores.engagement !== undefined && (
+                        <div className="p-3 rounded-lg" style={{ backgroundColor: '#dbeafe', border: '1px solid #3b82f6' }}>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#1e40af' }}>
+                              💬 Engagement
+                            </span>
+                            <span className="text-lg font-bold" style={{ color: '#1e40af' }}>
+                              {selectedCard.scores.engagement}
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#bfdbfe' }}>
+                            <div className="h-full rounded-full" style={{ width: `${selectedCard.scores.engagement}%`, backgroundColor: '#3b82f6' }} />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Quality */}
+                      {selectedCard.scores.quality !== undefined && (
+                        <div className="p-3 rounded-lg" style={{ backgroundColor: '#fae8ff', border: '1px solid #a855f7' }}>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#6b21a8' }}>
+                              ⭐ Quality
+                            </span>
+                            <span className="text-lg font-bold" style={{ color: '#6b21a8' }}>
+                              {selectedCard.scores.quality}
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#e9d5ff' }}>
+                            <div className="h-full rounded-full" style={{ width: `${selectedCard.scores.quality}%`, backgroundColor: '#a855f7' }} />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SEO Discoverability */}
+                      {selectedCard.scores.seo_discoverability !== undefined && (
+                        <div className="p-3 rounded-lg" style={{ backgroundColor: '#fed7aa', border: '1px solid #f97316' }}>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#7c2d12' }}>
+                              🔍 SEO
+                            </span>
+                            <span className="text-lg font-bold" style={{ color: '#7c2d12' }}>
+                              {selectedCard.scores.seo_discoverability}
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#fed7aa' }}>
+                            <div className="h-full rounded-full" style={{ width: `${selectedCard.scores.seo_discoverability}%`, backgroundColor: '#f97316' }} />
+                          </div>
+                        </div>
+                      )}
                     </div>
+
+                    {/* Metadata - Best Time to Post & Estimated Reach */}
+                    {(selectedCard.best_time_to_post || selectedCard.estimated_reach) && (
+                      <div className="flex gap-3 flex-wrap mb-6">
+                        {selectedCard.best_time_to_post && (
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+                            style={{ 
+                              backgroundColor: '#e0f2fe',
+                              color: '#075985',
+                              border: '1px solid #0284c7'
+                            }}>
+                            🕒 Best Time: {selectedCard.best_time_to_post}
+                          </div>
+                        )}
+                        {selectedCard.estimated_reach && (
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+                            style={{ 
+                              backgroundColor: '#f0fdf4',
+                              color: '#166534',
+                              border: '1px solid #22c55e'
+                            }}>
+                            📊 Estimated Reach: {selectedCard.estimated_reach}
+                          </div>
+                        )}
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
+                          style={{ 
+                            backgroundColor: 'var(--color-bg-lighter)',
+                            color: 'var(--color-text-primary)',
+                            border: '1px solid var(--color-border-lighter)'
+                          }}>
+                          📐 Aspect Ratio: {selectedCard.aspect_ratio}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Score Reasoning */}
+                    {selectedCard.score_reasoning && (
+                      <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#f0f9ff', border: '1px solid #0284c7' }}>
+                        <h4 className="text-sm font-bold mb-2" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#075985' }}>
+                          📝 Score Reasoning
+                        </h4>
+                        <p className="text-sm leading-relaxed" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#0c4a6e' }}>
+                          {selectedCard.score_reasoning}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Improvement Suggestions */}
+                    {selectedCard.improvement_suggestions && selectedCard.improvement_suggestions.length > 0 && (
+                      <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: '#fefce8', border: '1px solid #eab308' }}>
+                        <h4 className="text-sm font-bold mb-3" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#854d0e' }}>
+                          💡 Improvement Suggestions
+                        </h4>
+                        <ul className="space-y-2">
+                          {selectedCard.improvement_suggestions.map((suggestion, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm" style={{ fontFamily: 'var(--font-figtree), Figtree', color: '#713f12' }}>
+                              <span className="flex-shrink-0 mt-0.5">•</span>
+                              <span>{suggestion}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
                   {/* Full Content */}
