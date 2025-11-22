@@ -13,17 +13,17 @@ type FAQSectionProps = {
 }
 const defaultFAQs: FAQItem[] = [
   {
-    question: "What is Omni and how does it work?",
+    question: "What is Vyx and how does it work?",
     answer:
-      "Omni is an AI-powered content repurposing engine that transforms long-form videos into multiple platform-optimized micro-content pieces. It analyzes your source material and generates ready-to-post content for blog posts, social media, short-form video, and image assets. Simply upload your video, select your desired content types, and get instant quality scores, downloadable packages, and audit logs for complete transparency.",
+      "Vyx is an AI-powered content repurposing engine that transforms long-form videos into multiple platform-optimized micro-content pieces. It analyzes your source material and generates ready-to-post content for blog posts, social media, short-form video, and image assets. Simply upload your video, select your desired content types, and get instant quality scores, downloadable packages, and audit logs for complete transparency.",
   },
   {
-    question: "How does Omni generate content with virality and usefulness scores?",
+    question: "How does Vyx generate content with virality and usefulness scores?",
     answer:
-      "Omni uses advanced natural language processing and machine learning models to analyze each generated content piece and predict its performance potential. The virality score estimates engagement likelihood based on trending patterns and audience preferences, while the usefulness score measures how well content aligns with your target audience needs. Both scores are powered by analysis of millions of successful content pieces across platforms, helping you prioritize which pieces to promote.",
+      "Vyx uses advanced natural language processing and machine learning models to analyze each generated content piece and predict its performance potential. The virality score estimates engagement likelihood based on trending patterns and audience preferences, while the usefulness score measures how well content aligns with your target audience needs. Both scores are powered by analysis of millions of successful content pieces across platforms, helping you prioritize which pieces to promote.",
   },
   {
-    question: "How do I get started with Omni and what are the pricing options?",
+    question: "How do I get started with Vyx and what are the pricing options?",
     answer:
       "Getting started is simple: sign up for a free trial, upload your first video, select your desired content formats, and receive your generated package within minutes. We offer flexible pricing tiers: Starter (free for trials), Professional ($99/month for individuals), and Enterprise (custom pricing with dedicated support and batch processing). All plans include API access, audit logs, and quality scoring. Contact our sales team for volume discounts and custom enterprise solutions.",
   },

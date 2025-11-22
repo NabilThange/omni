@@ -17,12 +17,12 @@ const Loader10 = dynamic(() => import('./loaders/LoaderAnimation10'), { ssr: fal
 const Loader11 = dynamic(() => import('./loaders/LoaderAnimation11'), { ssr: false })
 
 export const MESSAGES = [
-  "Omni is studying your video's strongest moments…",
+  "Vyx is studying your video's strongest moments…",
   "Extracting key ideas and transforming them into platform-ready pieces…",
   "Crafting posts, captions, and scripts with precision…",
   "Generating high-impact content tailored to each platform…",
   "Scoring and refining each piece for maximum impact…",
-  "Your Omni-powered content is almost ready…"
+  "Your Vyx-powered content is almost ready…"
 ];
 
 

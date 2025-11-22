@@ -30,9 +30,9 @@ const caseStudies: CaseStudy[] = [
         />
       </svg>
     ),
-    title: "Clandestine uses Omni to understand how their teams collaborate in real-time.",
+    title: "Clandestine uses Vyx to understand how their teams collaborate in real-time.",
     features: ["Slack Calls", "Meeting Transcripts", "Sentiment Reports"],
-    quote: "Omni gives us clarity on team alignment we never had before.",
+    quote: "Vyx gives us clarity on team alignment we never had before.",
     attribution: "Marie Chen, Head of Operations, Clandestine",
     accentColor: "#16b364",
     cards: [
@@ -126,9 +126,9 @@ const caseStudies: CaseStudy[] = [
         </defs>
       </svg>
     ),
-    title: "Cloudwatch leverages Omni to monitor cross-functional team dynamics across global offices.",
+    title: "Cloudwatch leverages Vyx to monitor cross-functional team dynamics across global offices.",
     features: ["Slack Calls", "Meeting Transcripts", "Sentiment Reports"],
-    quote: "With Omni, we can see collaboration patterns that directly impact our product velocity.",
+    quote: "With Vyx, we can see collaboration patterns that directly impact our product velocity.",
     attribution: "Sarah Chen, VP Engineering, Cloudwatch",
     accentColor: "#3b82f6",
     cards: [
@@ -158,9 +158,9 @@ const caseStudies: CaseStudy[] = [
         </g>
       </svg>
     ),
-    title: "EightBall relies on Omni to track team health metrics and async communication quality.",
+    title: "EightBall relies on Vyx to track team health metrics and async communication quality.",
     features: ["Slack Calls", "Sentiment Reports"],
-    quote: "Omni transformed how we understand our remote-first culture.",
+    quote: "Vyx transformed how we understand our remote-first culture.",
     attribution: "Karri Saarinen, Co-founder, EightBall",
     accentColor: "#0A0D12",
     cards: [
@@ -272,7 +272,7 @@ const caseStudies: CaseStudy[] = [
         </g>
       </svg>
     ),
-    title: "CoreOS uses Omni to ensure design and engineering teams stay in sync during sprints.",
+    title: "CoreOS uses Vyx to ensure design and engineering teams stay in sync during sprints.",
     features: ["Meeting Transcripts", "Sentiment Reports"],
     quote: "The sentiment analysis helps us identify friction points before they become blockers.",
     attribution: "Noah Levin, VP Engineering, CoreOS",
@@ -301,9 +301,9 @@ const caseStudies: CaseStudy[] = [
         />
       </svg>
     ),
-    title: "NovaCreative Tripled Micro-Content Output with Omni",
+    title: "NovaCreative Tripled Micro-Content Output with Vyx",
     features: ["Video Upload", "Multi-Format Export", "Virality Scoring"],
-    quote: "With Omni, we turned one long-form client video into 12 ready-to-post pieces across blog, LinkedIn, Instagram and X — and our engagement jumped by 320% in the first month.",
+    quote: "With Vyx, we turned one long-form client video into 12 ready-to-post pieces across blog, LinkedIn, Instagram and X — and our engagement jumped by 320% in the first month.",
     attribution: "Emma Roberts, Head of Content & Strategy, NovaCreative",
     accentColor: "#FF6B35",
     cards: [
@@ -397,9 +397,9 @@ const caseStudies: CaseStudy[] = [
         </defs>
       </svg>
     ),
-    title: "BrandPulse Accelerated Content Strategy with Omni's AI-Powered Repurposing",
+    title: "BrandPulse Accelerated Content Strategy with Vyx's AI-Powered Repurposing",
     features: ["Batch Processing", "SEO Optimization", "Brand Voice Preservation"],
-    quote: "Omni cut our content production time by 70%. What used to take our team 2 weeks now takes 2 days, and the quality has never been better.",
+    quote: "Vyx cut our content production time by 70%. What used to take our team 2 weeks now takes 2 days, and the quality has never been better.",
     attribution: "Marcus Chen, Chief Marketing Officer, BrandPulse",
     accentColor: "#7C3AED",
     cards: [
@@ -429,9 +429,9 @@ const caseStudies: CaseStudy[] = [
         </g>
       </svg>
     ),
-    title: "Lumina Studios Scaled Content Across 5 Verticals Using Omni",
+    title: "Lumina Studios Scaled Content Across 5 Verticals Using Vyx",
     features: ["Multi-Platform Optimization", "Analytics Dashboard", "Audit Trail"],
-    quote: "Before Omni, managing content across YouTube, TikTok, LinkedIn, and Instagram was a nightmare. Now it's seamless, and our engagement metrics are up 185% across the board.",
+    quote: "Before Vyx, managing content across YouTube, TikTok, LinkedIn, and Instagram was a nightmare. Now it's seamless, and our engagement metrics are up 185% across the board.",
     attribution: "Priya Desai, Founder, Lumina Studios",
     accentColor: "#00D9FF",
     cards: [
@@ -505,9 +505,9 @@ const caseStudies: CaseStudy[] = [
         </text>
       </svg>
     ),
-    title: "Nexus Media Eliminated Content Repurposing Bottlenecks with Omni",
+    title: "Nexus Media Eliminated Content Repurposing Bottlenecks with Vyx",
     features: ["AI-Generated Captions", "Smart Cropping", "Performance Predictions"],
-    quote: "Omni's virality and usefulness scores completely changed how we decide which pieces to promote. We're seeing 40% better ROI on our paid campaigns.",
+    quote: "Vyx's virality and usefulness scores completely changed how we decide which pieces to promote. We're seeing 40% better ROI on our paid campaigns.",
     attribution: "James Richardson, VP of Content Strategy, Nexus Media",
     accentColor: "#1DB854",
     cards: [
@@ -951,7 +951,7 @@ export const CaseStudiesCarousel = () => {
               fontFamily: "var(--font-figtree), Figtree",
             }}
           >
-            See how leading teams use Omni to transform content creation across platforms.
+            See how leading teams use Vyx to transform content creation across platforms.
           </p>
         </div>
 

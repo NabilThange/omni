@@ -33,7 +33,7 @@ From the project root:
   - Registers `@vercel/analytics` via `<Analytics />` in the root body.
 
 - `app/page.tsx`
-  - Marketing/landing page for "Omni".
+  - Marketing/landing page for "Vyx".
   - Composes presentational sections from `components/`:
     - `PortfolioNavbar`, `ProductTeaserCard`, `BankingScaleHero`, `CaseStudiesCarousel`, `IntegrationCarousel`, `PricingSection`, `FAQSection`, `Footer`.
 

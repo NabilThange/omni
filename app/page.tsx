@@ -1,4 +1,5 @@
 import { PortfolioNavbar } from "@/components/PortfolioNavbar"
+import { BentoHero } from "@/components/BentoHero"
 import { ProductTeaserCard } from "@/components/ProductTeaserCard"
 import { BankingScaleHero } from "@/components/BankingScaleHero"
 import { CaseStudiesCarousel } from "@/components/CaseStudiesCarousel"
@@ -11,6 +12,7 @@ export default function Page() {
   return (
     <>
       <PortfolioNavbar />
+      <BentoHero />
       <ProductTeaserCard />
       <BankingScaleHero />
       <CaseStudiesCarousel />

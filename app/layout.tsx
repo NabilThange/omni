@@ -22,21 +22,21 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Omni - AI-Powered Content Repurposing Platform",
+  title: "Vyx - AI-Powered Content Repurposing Platform",
   description: "Transform your long-form videos into multi-platform ready content. Get instant virality scores, usefulness metrics, and downloadable packages.",
   generator: "v0.app",
   icons: {
     icon: "/omnilogo.png",
   },
   openGraph: {
-    title: "Omni - AI-Powered Content Repurposing Platform",
+    title: "Vyx - AI-Powered Content Repurposing Platform",
     description: "Transform your long-form videos into multi-platform ready content. Get instant virality scores, usefulness metrics, and downloadable packages.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Omni - AI-Powered Content Repurposing Platform",
+    title: "Vyx - AI-Powered Content Repurposing Platform",
     description: "Transform your long-form videos into multi-platform ready content. Get instant virality scores, usefulness metrics, and downloadable packages.",
   },
 }

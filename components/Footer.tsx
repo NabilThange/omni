@@ -29,7 +29,7 @@ type FooterProps = {
 const defaultSections: FooterSection[] = []
 
 export const Footer = ({
-  companyName = "Omni",
+  companyName = "Vyx",
   tagline = "Transform Videos Into Multi-Platform Content",
   sections = defaultSections,
   socialLinks = {

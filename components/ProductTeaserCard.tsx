@@ -103,7 +103,7 @@ export const ProductTeaserCard = (props: ProductTeaserCardProps) => {
             }}
             className="w-full lg:w-1/2 bg-white rounded-2xl sm:rounded-[40px] flex justify-center items-center min-h-[400px] sm:min-h-[500px] lg:aspect-square overflow-hidden"
             style={{
-              backgroundImage: "url(/heromodel.png)",
+              backgroundImage: "url(/sc5.png)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
