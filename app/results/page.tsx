@@ -69,12 +69,12 @@ function ResultsContent() {
   useEffect(() => {
     try {
       // First try to get data from sessionStorage (new method)
-      const storedData = sessionStorage.getItem('omni_content_result')
+      const storedData = sessionStorage.getItem('vyx_content_result')
       if (storedData) {
         const parsedData = JSON.parse(storedData) as N8NResponse
         setData(parsedData)
         // Clear from sessionStorage after reading
-        sessionStorage.removeItem('omni_content_result')
+        sessionStorage.removeItem('vyx_content_result')
       } else {
         // Fallback: try URL params (old method for backward compatibility)
         const encodedData = searchParams.get('data')

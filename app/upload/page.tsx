@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { PortfolioNavbar } from '@/components/PortfolioNavbar'
-import { Footer } from '@/components/Footer'
 import { ProcessingModal } from '@/components/ProcessingModal'
 import { ChevronDown } from 'lucide-react'
 
@@ -70,7 +68,7 @@ export default function UploadPage() {
       
       if (response.success) {
         // Store response in sessionStorage instead of URL to avoid URI_TOO_LONG error
-        sessionStorage.setItem('omni_content_result', JSON.stringify(response))
+        sessionStorage.setItem('vyx_content_result', JSON.stringify(response))
         router.push('/results')
       }
     } catch (err) {
@@ -84,10 +82,9 @@ export default function UploadPage() {
 
   return (
     <>
-      <PortfolioNavbar />
       <ProcessingModal open={isSubmitting} onCancel={handleCancel} />
 
-      <main className="min-h-screen bg-white pt-32 pb-16">
+      <main className="min-h-screen bg-white pt-16 pb-16">
         <div className="max-w-3xl mx-auto px-8">
           {/* Header */}
           <div className="mb-12">
@@ -268,7 +265,6 @@ export default function UploadPage() {
           </form>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

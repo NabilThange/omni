@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Figtree, Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from "@vercel/analytics/next"
+import { Navbar } from "@/components/header"
 import "./globals.css"
 
 const figtree = Figtree({
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   description: "Transform your long-form videos into multi-platform ready content. Get instant virality scores, usefulness metrics, and downloadable packages.",
   generator: "v0.app",
   icons: {
-    icon: "/omnilogo.png",
+    icon: "/vyxlogo.png",
   },
   openGraph: {
     title: "Vyx - AI-Powered Content Repurposing Platform",
@@ -49,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${figtree.variable} ${geistMono.variable} font-sans antialiased`}>
+        <Navbar />
         {children}
         <Analytics />
       </body>

@@ -1,6 +1,8 @@
 "use client"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
+
 type ProductTeaserCardProps = {
   headline?: string
   subheadline?: string
@@ -25,7 +27,7 @@ export const ProductTeaserCard = (props: ProductTeaserCardProps) => {
   return (
     <section className="w-full px-4 sm:px-8 pt-16 sm:pt-24 lg:pt-32 pb-8 sm:pb-16">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-2">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           <motion.div
             initial={{
               opacity: 0,
@@ -60,33 +62,19 @@ export const ProductTeaserCard = (props: ProductTeaserCardProps) => {
               {subheadline}
             </p>
 
-            <ul className="flex flex-col sm:flex-row gap-3 sm:gap-1.5 flex-wrap mt-6 sm:mt-10">
-              <li className="flex-1 sm:flex-none">
-                <a
-                  href={primaryButtonHref}
-                  className="block w-full sm:w-auto cursor-pointer text-white rounded-full px-6 sm:px-[18px] py-3 sm:py-[15px] text-base leading-4 whitespace-nowrap transition-all duration-150 ease-[cubic-bezier(0.455,0.03,0.515,0.955)] hover:rounded-2xl text-center"
-                  style={{
-                    backgroundColor: 'var(--color-primary-action)'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action-hover)'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action)'}
-                >
-                  {primaryButtonText}
-                </a>
-              </li>
-              <li className="flex-1 sm:flex-none">
-                <a
-                  href={secondaryButtonHref}
-                  className="block w-full sm:w-auto cursor-pointer border rounded-full px-6 sm:px-[18px] py-3 sm:py-[15px] text-base leading-4 whitespace-nowrap transition-all duration-150 ease-[cubic-bezier(0.455,0.03,0.515,0.955)] hover:rounded-2xl text-center"
-                  style={{
-                    borderColor: 'var(--color-text-primary)',
-                    color: 'var(--color-text-primary)'
-                  }}
-                >
-                  {secondaryButtonText}
-                </a>
-              </li>
-            </ul>
+            <div className="mt-8 sm:mt-10">
+              <Link
+                href="/upload"
+                className="inline-block cursor-pointer text-white rounded-full px-8 py-4 text-base font-semibold leading-4 whitespace-nowrap transition-all duration-150 ease-[cubic-bezier(0.455,0.03,0.515,0.955)] hover:rounded-2xl text-center"
+                style={{
+                  backgroundColor: 'var(--color-primary-action)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action)'}
+              >
+                Repurpose Content
+              </Link>
+            </div>
           </motion.div>
 
           <motion.div
@@ -101,14 +89,31 @@ export const ProductTeaserCard = (props: ProductTeaserCardProps) => {
               ease: [0.645, 0.045, 0.355, 1],
               delay: 0.2,
             }}
-            className="w-full lg:w-1/2 bg-white rounded-2xl sm:rounded-[40px] flex justify-center items-center min-h-[400px] sm:min-h-[500px] lg:aspect-square overflow-hidden"
+            className="w-full lg:w-1/2 bg-white rounded-2xl sm:rounded-[40px] flex flex-col justify-end items-center min-h-[400px] sm:min-h-[500px] lg:aspect-square overflow-hidden relative"
             style={{
               backgroundImage: "url(/sc5.png)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="relative z-10 p-6 sm:p-8 w-full">
+              <h3 className="text-white text-xl sm:text-2xl font-bold mb-2">AI Video Clips</h3>
+              <p className="text-white/80 text-sm sm:text-base mb-4">Automatically cut your videos into high-impact short clips.</p>
+              <Link
+                href="/clips"
+                className="inline-block cursor-pointer text-white rounded-full px-8 py-4 text-base font-semibold leading-4 whitespace-nowrap transition-all duration-150 ease-[cubic-bezier(0.455,0.03,0.515,0.955)] hover:rounded-2xl text-center"
+                style={{
+                  backgroundColor: 'var(--color-primary-action)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action-hover)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary-action)'}
+              >
+                Create Clips
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

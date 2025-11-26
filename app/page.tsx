@@ -11,7 +11,7 @@ import { Footer } from "@/components/Footer"
 export default function Page() {
   return (
     <>
-      <PortfolioNavbar />
+      {/* <PortfolioNavbar /> */}
       <BentoHero />
       <ProductTeaserCard />
       <BankingScaleHero />

@@ -77,7 +77,7 @@ export const PortfolioNavbar = () => {
               onClick={handleLogoClick}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-200"
             >
-              <img src="/omnilogo.png" alt="Vyx Logo" className="h-6 w-auto" />
+              <img src="/vyxlogo.png" alt="Vyx Logo" className="h-6 w-auto" />
               <span
                 className="text-lg font-bold text-foreground hidden sm:inline"
                 style={{
