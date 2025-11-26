@@ -57,7 +57,8 @@ interface ClipsApiResponse {
   message?: string
 }
 
-const API_ENDPOINT = 'https://omni-n8n.up.railway.app/webhook/clip-youtube'
+// Use local API route to proxy requests (avoids CORS issues)
+const API_ENDPOINT = '/api/clips'
 const TIMEOUT_MS = 10 * 60 * 1000 // 10 minutes
 
 // YouTube URL validation
