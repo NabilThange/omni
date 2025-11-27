@@ -64,7 +64,9 @@ export default function UploadPage() {
       }
 
       // Direct call to N8N webhook (no backend proxy needed - CORS already enabled)
-      const response = await fetch('https://n8n-render-tpfk.onrender.com/webhook-test/ingest-content', {
+      const webhookUrl = process.env.NEXT_PUBLIC_N8N_INGEST_WEBHOOK || 'https://n8n-render-tpfk.onrender.com/webhook-test/ingest-content'
+      
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
