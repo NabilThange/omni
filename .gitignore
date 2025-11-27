@@ -122,4 +122,5 @@ bower_components
 .turbo
 
 # Local workflow file
-My workflow.json
+
+workflow.json

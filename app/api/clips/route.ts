@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const N8N_CLIPS_WEBHOOK = process.env.NEXT_PUBLIC_CLIP_YOUTUBE_WEBHOOK || 'https://vyx-n8n.onrender.com/webhook/clip-youtube'
+const N8N_CLIPS_WEBHOOK = process.env.N8N_CLIP_WEBHOOK_URL || 'https://vyx-n8n.onrender.com/webhook/clip-youtube'
 
 export async function POST(request: NextRequest) {
   try {
