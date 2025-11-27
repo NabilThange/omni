@@ -1,4 +1,6 @@
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK || '/api/ingest-content'
+// FORCE PROXY: We must use the local API route to avoid CORS.
+// Even if Vercel env vars are wrong, this will force the correct path.
+const N8N_WEBHOOK_URL = '/api/ingest-content'
 
 export interface N8NRequest {
   videoUrl: string
