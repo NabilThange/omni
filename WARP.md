@@ -61,7 +61,7 @@ From the project root:
 
 - `lib/n8n-client.ts`
   - Centralizes the integration with an external **n8n** workflow exposed as a webhook.
-  - Uses `NEXT_PUBLIC_N8N_WEBHOOK_URL` (see environment notes below), defaulting to `http://localhost:5678/webhook/ingest-content` if the env var is not set.
+  - Uses `NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK` (see environment notes below), defaulting to `https://vyx-n8n.onrender.com/webhook/ingest-content` if the env var is not set.
   - Exposes:
     - `N8NClient.isValidYouTubeUrl(url: string)` — regex-based check that the URL looks like a YouTube watch or short link.
     - `N8NClient.generateContent(videoUrl: string, contentTypes: string[])` — POSTs `{ videoUrl, contentTypes }` to the webhook.
@@ -125,10 +125,11 @@ From the project root:
 
 - **n8n webhook URL**
   - The main business logic (transcripts, OPUS scoring, image generation) is offloaded to an external n8n workflow.
-  - Frontend calls are configured via the environment variable:
-    - `NEXT_PUBLIC_N8N_WEBHOOK_URL`
-  - If this variable is not set, `lib/n8n-client.ts` falls back to:
-    - `https://primary-production-a9f7.up.railway.app/webhook-test/ingest-content` (Railway production)
+  - Frontend calls are configured via the environment variables:
+    - `NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK`
+    - `NEXT_PUBLIC_CLIP_YOUTUBE_WEBHOOK`
+  - If these variables are not set, `lib/n8n-client.ts` falls back to:
+    - `https://vyx-n8n.onrender.com/webhook/ingest-content`
   - **Important**: This is a long-running call (60-90 seconds) due to:
     - YouTube transcript extraction (~10-20s)
     - OPUS content generation (~30-60s)

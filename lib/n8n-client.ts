@@ -1,4 +1,4 @@
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
+const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK ||
   'https://vyx-n8n.onrender.com/webhook/ingest-content'
 
 export interface N8NRequest {
@@ -107,11 +107,11 @@ export class N8NClient {
       // Browser support for AbortSignal.timeout is good in modern environments.
       // If it's unavailable, we just skip the explicit timeout and rely on default behaviour.
       if (typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal) {
-        // 3 minute timeout to give the workflow enough time to complete
+        // 10 minute timeout to give the workflow enough time to complete
         // (transcript extraction + AI processing + image generation typically takes 60-90 seconds)
         // while still avoiding infinite hangs in the UI.
         // @ts-expect-error - AbortSignal.timeout may not be in the TS lib yet
-        fetchOptions.signal = AbortSignal.timeout(180_000)
+        fetchOptions.signal = AbortSignal.timeout(600_000)
       }
 
       const response = await fetch(N8N_WEBHOOK_URL, fetchOptions)
