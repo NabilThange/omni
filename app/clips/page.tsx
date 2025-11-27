@@ -58,8 +58,7 @@ interface ClipsApiResponse {
 }
 
 // Direct N8N webhook call (CORS already enabled, no proxy needed)
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_CLIPS_WEBHOOK || 'https://n8n-render-tpfk.onrender.com/webhook-test/clip-youtube'
-const TIMEOUT_MS = 10 * 60 * 1000 // 10 minutes
+const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_CLIPS_WEBHOOK
 
 // YouTube URL validation
 function isValidYouTubeUrl(url: string): boolean {
