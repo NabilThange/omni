@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const N8N_CLIPS_WEBHOOK = 'https://omni-n8n.up.railway.app/webhook/clip-youtube'
+const N8N_CLIPS_WEBHOOK = 'https://vyx-n8n.onrender.com/webhook/clip-youtube'
 
 export async function POST(request: NextRequest) {
   try {

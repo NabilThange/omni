@@ -1,5 +1,5 @@
 const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
-  'https://omni-n8n.up.railway.app/webhook/ingest-content'
+  'https://vyx-n8n.onrender.com/webhook/ingest-content'
 
 export interface N8NRequest {
   videoUrl: string
