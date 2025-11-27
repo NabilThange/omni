@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
-    // Use server-side env var for the actual n8n URL
+    console.log('🚀 Proxying to n8n clips:', process.env.N8N_CLIP_WEBHOOK_URL);
+    
     const n8nUrl = process.env.N8N_CLIP_WEBHOOK_URL;
 
     if (!n8nUrl) {
@@ -20,19 +21,45 @@ export async function POST(request: Request) {
       body: JSON.stringify(body),
     });
 
-    // Get response text
-    const data = await response.text();
-    
-    // Try to parse JSON, otherwise return text
-    try {
-        const jsonData = JSON.parse(data);
-        return NextResponse.json(jsonData, { status: response.status });
-    } catch {
-        return new NextResponse(data, { status: response.status });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ n8n clips error:', response.status, errorText);
+      throw new Error(`n8n returned ${response.status}: ${errorText}`);
     }
 
-  } catch (error) {
-    console.error('Proxy error:', error);
-    return NextResponse.json({ error: 'Proxy request failed' }, { status: 500 });
+    const dataText = await response.text();
+    let data;
+    try {
+        data = JSON.parse(dataText);
+    } catch (e) {
+         // Fallback if response isn't JSON
+        data = { message: dataText };
+    }
+
+    console.log('✅ n8n clips response received');
+    
+    return NextResponse.json(data, { status: 200 });
+  } catch (error: any) {
+    console.error('❌ Clips proxy error:', error);
+    return NextResponse.json(
+      { 
+        success: false,
+        error: error.message,
+        timestamp: new Date().toISOString(),
+      },
+      { status: 500 }
+    );
   }
+}
+
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
 }

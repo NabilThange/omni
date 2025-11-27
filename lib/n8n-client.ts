@@ -1,5 +1,4 @@
-const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK ||
-  'https://vyx-n8n.onrender.com/webhook/ingest-content'
+const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_INGEST_CONTENT_WEBHOOK || '/api/ingest-content'
 
 export interface N8NRequest {
   videoUrl: string
