@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { PortfolioNavbar } from '@/components/PortfolioNavbar'
 import { Footer } from '@/components/Footer'
 import { Copy, Download, DownloadIcon, ChevronDown, ChevronUp, RefreshCw, Send, X, ExternalLink, Maximize2, Check, Clipboard, FileDown, AlertCircle } from 'lucide-react'
-import type { N8NResponse } from '@/lib/n8n-client'
+import type { N8NResponse } from '@/lib/types'
 import JSZip from 'jszip'
 
 interface ResultItem {

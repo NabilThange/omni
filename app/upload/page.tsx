@@ -15,6 +15,11 @@ const CONTENT_TYPES = [
   { id: 'youtube_shorts_script', label: 'YouTube Shorts Script', icon: '▶️' },
 ]
 
+function isValidYouTubeUrl(url: string) {
+  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}/
+  return youtubeRegex.test(url)
+}
+
 export default function UploadPage() {
   const router = useRouter()
   const [videoUrl, setVideoUrl] = useState('')
@@ -54,21 +59,31 @@ export default function UploadPage() {
     setIsSubmitting(true)
 
     try {
-      const { N8NClient } = await import('@/lib/n8n-client')
-      
-      if (!N8NClient.isValidYouTubeUrl(videoUrl)) {
-        setError('Please enter a valid YouTube URL')
-        setIsSubmitting(false)
-        return
+      if (!isValidYouTubeUrl(videoUrl)) {
+        throw new Error('Please enter a valid YouTube URL')
       }
 
-      const mappedTypes = N8NClient.mapContentTypes(selectedTypes)
+      // Direct call to N8N webhook (no backend proxy needed - CORS already enabled)
+      const response = await fetch('https://n8n-render-tpfk.onrender.com/webhook-test/ingest-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          videoUrl,
+          contentTypes: selectedTypes
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`)
+      }
+
+      const data = await response.json()
       
-      const response = await N8NClient.generateContent(videoUrl, mappedTypes)
-      
-      if (response.success) {
+      if (data.success) {
         // Store response in sessionStorage instead of URL to avoid URI_TOO_LONG error
-        sessionStorage.setItem('vyx_content_result', JSON.stringify(response))
+        sessionStorage.setItem('vyx_content_result', JSON.stringify(data))
         router.push('/results')
       }
     } catch (err) {

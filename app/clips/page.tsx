@@ -57,8 +57,8 @@ interface ClipsApiResponse {
   message?: string
 }
 
-// Use local API route to proxy requests (avoids CORS issues)
-const API_ENDPOINT = '/api/clips'
+// Direct N8N webhook call (CORS already enabled, no proxy needed)
+const N8N_WEBHOOK_URL = 'https://n8n-render-tpfk.onrender.com/webhook-test/clip-youtube'
 const TIMEOUT_MS = 10 * 60 * 1000 // 10 minutes
 
 // YouTube URL validation
@@ -433,13 +433,14 @@ export default function ClipsPage() {
     }, TIMEOUT_MS)
 
     try {
-      const response = await fetch(API_ENDPOINT, {
+      const response = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           youtube_url: youtubeUrl,
+          subtitle_style: 'tiktok' // Default subtitle style
         }),
         signal: abortControllerRef.current.signal,
       })
